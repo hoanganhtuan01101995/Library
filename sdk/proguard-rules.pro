@@ -22,3 +22,5 @@
 
 #Firebase
 -keepattributes Signature
+
+-keep class com.hoanganhtuan01101995.sdk.Sdk { *; }
