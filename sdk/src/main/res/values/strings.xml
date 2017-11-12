@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TED</string>
+    <string name="app_name">Sdk</string>
 
     <string name="titleLoadmore">For more please click on <u>Load more</u> to see more</string>
     <string name="loadMore">Load more</string>
@@ -44,8 +44,8 @@
     <string name="update_the_latest_version_of_the_app_for_the_best_experience">Update the latest version of the app for the best experience</string>
     <string name="update_version">Update version</string>
 
-    <string name="interstitialKey">ca-app-pub-5541746005515911/4066852382</string>
-    <string name="rewardedVideoKey">ca-app-pub-5541746005515911/9361648305</string>
+    <string name="interstitialKey">hoang anh tuan</string>
+    <string name="rewardedVideoKey">hoang anh tuan</string>
 
     <string name="listVideoPlaylist">Videos playlist</string>
 </resources>
