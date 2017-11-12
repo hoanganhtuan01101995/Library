@@ -316,22 +316,18 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
                 .setRewardedVideoAdListener(new RewardedVideoAdListener() {
                     @Override
                     public void onRewardedVideoAdLoaded() {
-                        Utils.Loge(TAG, "onRewardedVideoAdLoaded");
                     }
 
                     @Override
                     public void onRewardedVideoAdOpened() {
-                        Utils.Loge(TAG, "onRewardedVideoAdOpened");
                     }
 
                     @Override
                     public void onRewardedVideoStarted() {
-                        Utils.Loge(TAG, "onRewardedVideoStarted");
                     }
 
                     @Override
                     public void onRewardedVideoAdClosed() {
-                        Utils.Loge(TAG, "onRewardedVideoAdClosed");
                         videoAdService = Admob.with(MainActivity.this)
                                 .asVideo()
                                 .setVideoAdId(Sdk.REWARDED_VIDEO_KEY)
@@ -341,17 +337,14 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
 
                     @Override
                     public void onRewarded(RewardItem rewardItem) {
-                        Utils.Loge(TAG, "onRewarded");
                     }
 
                     @Override
                     public void onRewardedVideoAdLeftApplication() {
-                        Utils.Loge(TAG, "onRewardedVideoAdLeftApplication");
                     }
 
                     @Override
                     public void onRewardedVideoAdFailedToLoad(int i) {
-                        Utils.Loge(TAG, "onRewardedVideoAdFailedToLoad");
                     }
                 })
                 .builder();
