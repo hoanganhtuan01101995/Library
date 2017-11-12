@@ -1,13 +1,13 @@
-package com.hoanganhtuan01101995.sdk.view;
+package com.hoanganhtuan01101995.state;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.hoanganhtuan01101995.sdk.R;
 
 /**
  * Created by HOANG ANH TUAN on 8/19/2017.
@@ -15,16 +15,16 @@ import com.hoanganhtuan01101995.sdk.R;
 
 public class StateView extends RelativeLayout {
 
+    private OnRefreshClickedListener onRefreshClickedListener;
+
     private State state;
 
-    private int drawableNoData;
     private int titleNoData;
     private int descriptionNoData;
-    private int drawableNoInternet;
     private int titleNoInternet;
     private int descriptionNoInternet;
 
-    private ImageView imgTitle;
+    private Button btnRefresh;
     private TextView tvTitle;
     private TextView tvDescription;
 
@@ -46,24 +46,29 @@ public class StateView extends RelativeLayout {
     private void init(Context context, AttributeSet attrs) {
         inflate(context, R.layout.layout_state, this);
 
-        imgTitle = this.findViewById(R.id.img_title);
-        tvTitle = this.findViewById(R.id.tv_title);
-        tvDescription = this.findViewById(R.id.tv_description);
+        tvTitle = findViewById(R.id.tvTitle);
+        tvDescription = findViewById(R.id.tvDescription);
+        btnRefresh = findViewById(R.id.btnRefresh);
+
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StateView);
-            drawableNoData = a.getResourceId(R.styleable.StateView_drawableNoData, R.drawable.ic_not_data);
-            titleNoData = a.getResourceId(R.styleable.StateView_titleNoData, R.string.app_name);
-            descriptionNoData = a.getResourceId(R.styleable.StateView_descriptionNoData, R.string.app_name);
-            drawableNoInternet = a.getResourceId(R.styleable.StateView_drawableNoInternet, R.drawable.ic_not_internet);
-            titleNoInternet = a.getResourceId(R.styleable.StateView_titleNoInternet, R.string.app_name);
-            descriptionNoInternet = a.getResourceId(R.styleable.StateView_descriptionNoInternet, R.string.app_name);
+            titleNoData = a.getResourceId(R.styleable.StateView_titleNoData, R.string.titleNotData);
+            descriptionNoData = a.getResourceId(R.styleable.StateView_descriptionNoData, R.string.descriptionNotData);
+            titleNoInternet = a.getResourceId(R.styleable.StateView_titleNoInternet, R.string.titleNotInternet);
+            descriptionNoInternet = a.getResourceId(R.styleable.StateView_descriptionNoInternet, R.string.descriptionNotInternet);
             a.recycle();
         }
+        btnRefresh.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onRefreshClickedListener != null) onRefreshClickedListener.onRefreshClicked();
+            }
+        });
         changeState(State.NORMAL);
     }
 
-    public void setDrawableNoData(int drawableNoData) {
-        this.drawableNoData = drawableNoData;
+    public void setOnRefreshClickedListener(OnRefreshClickedListener onRefreshClickedListener) {
+        this.onRefreshClickedListener = onRefreshClickedListener;
     }
 
     public void setTitleNoData(int titleNoData) {
@@ -72,10 +77,6 @@ public class StateView extends RelativeLayout {
 
     public void setDescriptionNoData(int descriptionNoData) {
         this.descriptionNoData = descriptionNoData;
-    }
-
-    public void setDrawableNoInternet(int drawableNoInternet) {
-        this.drawableNoInternet = drawableNoInternet;
     }
 
     public void setTitleNoInternet(int titleNoInternet) {
@@ -91,13 +92,13 @@ public class StateView extends RelativeLayout {
         this.state = state;
         switch (this.state) {
             case NO_DATA:
-                imgTitle.setImageResource(drawableNoData);
+                btnRefresh.setVisibility(GONE);
                 tvTitle.setText(getContext().getString(titleNoData));
                 tvDescription.setText(getContext().getString(descriptionNoData));
                 this.setVisibility(VISIBLE);
                 break;
             case NO_NETWORK:
-                imgTitle.setImageResource(drawableNoInternet);
+                btnRefresh.setVisibility(VISIBLE);
                 tvTitle.setText(getContext().getString(titleNoInternet));
                 tvDescription.setText(getContext().getString(descriptionNoInternet));
                 this.setVisibility(VISIBLE);
@@ -110,6 +111,10 @@ public class StateView extends RelativeLayout {
 
     public State getState() {
         return state;
+    }
+
+    public interface OnRefreshClickedListener {
+        void onRefreshClicked();
     }
 
     public enum State {

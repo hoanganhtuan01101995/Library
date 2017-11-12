@@ -1,0 +1,9 @@
+<resources>
+    <string name="titleNotData">Not Data</string>
+    <string name="descriptionNotData">Sorry, we could not find the data you need</string>
+
+    <string name="titleNotInternet">Not Internet</string>
+    <string name="descriptionNotInternet">No internet connection, please check the connection</string>
+
+    <string name="refresh">Refresh</string>
+</resources>

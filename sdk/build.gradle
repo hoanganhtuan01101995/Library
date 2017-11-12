@@ -49,5 +49,6 @@ dependencies {
     compile project(path: ':loadmore')
     compile project(path: ':update')
     compile project(path: ':admob')
+    compile project(path: ':state')
     compile project(path: ':http')
 }

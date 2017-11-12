@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.hoanganhtuan01101995.loadmore.EndlessRecyclerOnScrollListener;
 import com.hoanganhtuan01101995.loadmore.HeaderAndFooterRecyclerViewAdapter;
+import com.hoanganhtuan01101995.loadmore.view.LoadingFooter;
+import com.hoanganhtuan01101995.loadmore.view.RecyclerViewStateUtils;
 import com.hoanganhtuan01101995.sdk.R;
 import com.hoanganhtuan01101995.sdk.api.Api;
 import com.hoanganhtuan01101995.sdk.api.ApiCallback;
@@ -22,10 +24,7 @@ import com.hoanganhtuan01101995.sdk.db.VideoType;
 import com.hoanganhtuan01101995.sdk.ui.adapter.NormalAdapter;
 import com.hoanganhtuan01101995.sdk.ui.adapter.OnItemVideoClickedListener;
 import com.hoanganhtuan01101995.sdk.utils.Utils;
-import com.hoanganhtuan01101995.loadmore.view.LoadingFooter;
-import com.hoanganhtuan01101995.loadmore.view.RecyclerViewStateUtils;
-
-import butterknife.OnClick;
+import com.hoanganhtuan01101995.state.StateView;
 
 /**
  * Created by Hoang Anh Tuan on 11/10/2017.
@@ -34,12 +33,14 @@ import butterknife.OnClick;
 public class ListVideoPlaylistActivity extends Activity implements OnItemVideoClickedListener,
         ApiCallback<Video>,
         SwipeRefreshLayout.OnRefreshListener,
-        View.OnClickListener{
+        View.OnClickListener,
+        StateView.OnRefreshClickedListener {
 
     private static final String PLAYLIST_ID = "playlistId";
 
     View vBgList;
     View vClose;
+    StateView state;
     ImageView ivBack;
     TextView tvTitle;
     ImageView ivClose;
@@ -69,12 +70,15 @@ public class ListVideoPlaylistActivity extends Activity implements OnItemVideoCl
     private void initView() {
         vBgList = findViewById(R.id.vBgList);
         vClose = findViewById(R.id.vClose);
+        state = findViewById(R.id.state);
         ivBack = findViewById(R.id.ivBack);
         tvTitle = findViewById(R.id.tvTitle);
         ivClose = findViewById(R.id.ivClose);
         recyclerView = findViewById(R.id.recyclerView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         llListLoadmore = findViewById(R.id.llListLoadmore);
+
+        state.setOnRefreshClickedListener(this);
 
         ivBack.setOnClickListener(this);
 
@@ -145,8 +149,15 @@ public class ListVideoPlaylistActivity extends Activity implements OnItemVideoCl
 
     @Override
     public void onComplete() {
-        swipeRefreshLayout.setRefreshing(false);
         RecyclerViewStateUtils.setFooterViewState(recyclerView, LoadingFooter.State.Normal);
+        if (normalAdapter.getItemCount() > 0) {
+            state.changeState(StateView.State.NORMAL);
+        } else if (!Utils.online(this)) {
+            state.changeState(StateView.State.NO_NETWORK);
+        } else {
+            state.changeState(StateView.State.NO_DATA);
+        }
+        if (swipeRefreshLayout.isRefreshing()) swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -168,5 +179,12 @@ public class ListVideoPlaylistActivity extends Activity implements OnItemVideoCl
     public void onClick(View view) {
         finish();
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onRefreshClicked() {
+        state.changeState(StateView.State.NORMAL);
+        swipeRefreshLayout.setRefreshing(true);
+        onRefresh();
     }
 }

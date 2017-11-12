@@ -14,11 +14,6 @@
         android:layout_height="match_parent"
         android:background="#F7F8FA">
 
-        <com.hoanganhtuan01101995.sdk.view.StateView
-            android:id="@+id/state"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresh"
             android:layout_width="match_parent"
@@ -29,6 +24,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </android.support.v4.widget.SwipeRefreshLayout>
+
+        <com.hoanganhtuan01101995.state.StateView
+            android:id="@+id/state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </RelativeLayout>
 </LinearLayout>

@@ -30,7 +30,7 @@ import com.hoanganhtuan01101995.sdk.ui.adapter.OnItemVideoClickedListener;
 import com.hoanganhtuan01101995.sdk.utils.Utils;
 import com.hoanganhtuan01101995.loadmore.view.LoadingFooter;
 import com.hoanganhtuan01101995.loadmore.view.RecyclerViewStateUtils;
-import com.hoanganhtuan01101995.sdk.view.StateView;
+import com.hoanganhtuan01101995.state.StateView;
 
 /**
  * Created by HoangAnhTuan on 8/25/2017.
@@ -40,7 +40,8 @@ public class VideoActivity extends YouTubeBaseActivity implements
         ApiCallback<Video>,
         OnItemVideoClickedListener,
         YouTubePlayer.OnInitializedListener,
-        SwipeRefreshLayout.OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener,
+        StateView.OnRefreshClickedListener{
 
     private static final String PLAYLIST_ID = "playlistId";
 
@@ -83,6 +84,8 @@ public class VideoActivity extends YouTubeBaseActivity implements
         list = findViewById(R.id.list);
         refresh = findViewById(R.id.refresh);
 
+        state.setOnRefreshClickedListener(this);
+
         video = (Video) getIntent().getSerializableExtra(Video.class.getSimpleName());
         videoType = (VideoType) getIntent().getSerializableExtra(VideoType.class.getSimpleName());
         playlistId = getIntent().getStringExtra(PLAYLIST_ID);
@@ -111,8 +114,8 @@ public class VideoActivity extends YouTubeBaseActivity implements
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer, boolean wasRestored) {
+        this.youTubePlayer = youTubePlayer;
         if (!wasRestored) {
-            this.youTubePlayer = youTubePlayer;
             this.youTubePlayer.loadVideo(video.getVideoId());
         }
     }
@@ -249,6 +252,13 @@ public class VideoActivity extends YouTubeBaseActivity implements
         this.video = video;
         youTubePlayer.loadVideo(video.getVideoId());
         showInfo();
+    }
+
+    @Override
+    public void onRefreshClicked() {
+        refresh.setRefreshing(true);
+        state.changeState(StateView.State.NORMAL);
+        onRefresh();
     }
 
     static class ViewHolder {

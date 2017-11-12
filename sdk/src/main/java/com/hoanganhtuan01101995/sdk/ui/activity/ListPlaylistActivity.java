@@ -23,6 +23,7 @@ import com.hoanganhtuan01101995.sdk.ui.adapter.PlaylistAdapter;
 import com.hoanganhtuan01101995.sdk.utils.Utils;
 import com.hoanganhtuan01101995.loadmore.view.LoadingFooter;
 import com.hoanganhtuan01101995.loadmore.view.RecyclerViewStateUtils;
+import com.hoanganhtuan01101995.state.StateView;
 
 /**
  * Created by Hoang Anh Tuan on 11/10/2017.
@@ -31,10 +32,12 @@ import com.hoanganhtuan01101995.loadmore.view.RecyclerViewStateUtils;
 public class ListPlaylistActivity extends Activity implements PlaylistAdapter.OnItemPlaylistClickedListener,
         ApiCallback<Playlist>,
         SwipeRefreshLayout.OnRefreshListener,
-        View.OnClickListener {
+        View.OnClickListener,
+        StateView.OnRefreshClickedListener {
 
     View vBgList;
     View vClose;
+    StateView state;
     ImageView ivBack;
     TextView tvTitle;
     ImageView ivClose;
@@ -65,10 +68,12 @@ public class ListPlaylistActivity extends Activity implements PlaylistAdapter.On
         ivBack = findViewById(R.id.ivBack);
         tvTitle = findViewById(R.id.tvTitle);
         ivClose = findViewById(R.id.ivClose);
+        state = findViewById(R.id.state);
         recyclerView = findViewById(R.id.recyclerView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         llListLoadmore = findViewById(R.id.llListLoadmore);
 
+        state.setOnRefreshClickedListener(this);
         vClose.setOnClickListener(this);
         ivClose.setOnClickListener(this);
 
@@ -154,8 +159,15 @@ public class ListPlaylistActivity extends Activity implements PlaylistAdapter.On
 
     @Override
     public void onComplete() {
-        swipeRefreshLayout.setRefreshing(false);
         RecyclerViewStateUtils.setFooterViewState(recyclerView, LoadingFooter.State.Normal);
+        if (playlistAdapter.getItemCount() > 0) {
+            state.changeState(StateView.State.NORMAL);
+        } else if (!Utils.online(this)) {
+            state.changeState(StateView.State.NO_NETWORK);
+        } else {
+            state.changeState(StateView.State.NO_DATA);
+        }
+        if (swipeRefreshLayout.isRefreshing()) swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -230,6 +242,13 @@ public class ListPlaylistActivity extends Activity implements PlaylistAdapter.On
                     }
                 })
                 .start();
+    }
+
+    @Override
+    public void onRefreshClicked() {
+        state.changeState(StateView.State.NORMAL);
+        swipeRefreshLayout.setRefreshing(true);
+        onRefresh();
     }
 }
 

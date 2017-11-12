@@ -30,6 +30,7 @@ import com.hoanganhtuan01101995.sdk.db.VideoType;
 import com.hoanganhtuan01101995.sdk.ui.adapter.OnItemVideoClickedListener;
 import com.hoanganhtuan01101995.sdk.ui.adapter.VideoAdapter;
 import com.hoanganhtuan01101995.sdk.utils.Utils;
+import com.hoanganhtuan01101995.state.StateView;
 import com.hoanganhtuan01101995.update.Update;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
@@ -41,7 +42,9 @@ import java.io.Serializable;
 public class MainActivity extends AppCompatActivity implements DiscreteScrollView.OnItemChangedListener,
         ApiCallback<Video>,
         OnItemVideoClickedListener,
-        View.OnClickListener {
+        View.OnClickListener,
+        SwipeRefreshLayout.OnRefreshListener,
+        StateView.OnRefreshClickedListener {
 
     ImageView ivSearch;
     ImageView ivAdvertisement;
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
     TextView tvHistory;
     DiscreteScrollView videos;
     SwipeRefreshLayout refresh;
+    StateView state;
     ImageView ivStar;
     TextSwitcher tsTitle;
     TextSwitcher tsDescription;
@@ -111,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         tvHistory = findViewById(R.id.tvHistory);
         videos = findViewById(R.id.videos);
         refresh = findViewById(R.id.refresh);
+        state = findViewById(R.id.state);
         ivStar = findViewById(R.id.ivStar);
         tsTitle = findViewById(R.id.tsTitle);
         tsDescription = findViewById(R.id.tsDescription);
@@ -126,6 +131,9 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         tvSave.setOnClickListener(this);
         tvHome.setOnClickListener(this);
         tvHistory.setOnClickListener(this);
+
+        refresh.setOnRefreshListener(this);
+        state.setOnRefreshClickedListener(this);
 
         type = Type.HOME;
         pageToken = "";
@@ -251,7 +259,25 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
 
     @Override
     public void onComplete() {
-        refresh.setRefreshing(false);
+        if (videoAdapter.getItemCount() > 0) {
+            state.changeState(StateView.State.NORMAL);
+        } else if (!Utils.online(this) && type == Type.HOME) {
+            state.changeState(StateView.State.NO_NETWORK);
+        } else {
+            state.changeState(StateView.State.NO_DATA);
+        }
+        if (refresh.isRefreshing()) refresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefreshClicked() {
+        state.changeState(StateView.State.NORMAL);
+        getData();
+    }
+
+    @Override
+    public void onRefresh() {
+        getData();
     }
 
     @Override

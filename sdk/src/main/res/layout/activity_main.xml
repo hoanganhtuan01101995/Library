@@ -262,6 +262,11 @@
                         android:layout_marginLeft="61dp" />
                 </FrameLayout>
             </LinearLayout>
+
+            <com.hoanganhtuan01101995.state.StateView
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </FrameLayout>
     </LinearLayout>
 </RelativeLayout>
