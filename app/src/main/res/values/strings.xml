@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Library</string>
+
+    <string name="interstitialKey">ca-app-pub-5541746005515911/4066852382</string>
+    <string name="rewardedVideoKey">ca-app-pub-5541746005515911/9361648305</string>
+
+</resources>

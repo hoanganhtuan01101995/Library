@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="headerHeight">50dp</dimen>
+    <dimen name="footerHeight">50dp</dimen>
+    <dimen name="listLoadMoreHeight">350dp</dimen>
+</resources>

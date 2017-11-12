@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StateView">
+        <attr name="titleNoData" format="string"/>
+        <attr name="titleNoInternet" format="string"/>
+        <attr name="drawableNoData" format="reference"/>
+        <attr name="drawableNoInternet" format="reference"/>
+        <attr name="descriptionNoData" format="string"/>
+        <attr name="descriptionNoInternet" format="string"/>
+    </declare-styleable>
+</resources>

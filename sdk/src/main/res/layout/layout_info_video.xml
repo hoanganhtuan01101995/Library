@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/headerHeight"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivSave"
+                android:layout_width="@dimen/headerHeight"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:padding="13dp"
+                android:src="@drawable/ic_save_black" />
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="@dimen/headerHeight"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:src="@drawable/ic_back_black" />
+
+            <ImageView
+                android:id="@+id/ivSend"
+                android:layout_width="@dimen/headerHeight"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/ivBack"
+                android:padding="14dp"
+                android:src="@drawable/ic_send_black" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="In March 2009, North Korean soldiers captured"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:text="In March 2009, North Korean soldiers captured journalist Euna Lee and her colleague Laura Ling while they were shooting a documentary on the border with ..."
+            android:textColor="@color/colorBlack"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingBottom="15sp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="8 phut truoc"
+            android:textColor="@color/colorNormal"
+            android:textSize="11sp" />
+    </LinearLayout>
+</RelativeLayout>
