@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import com.hoanganhtuan01101995.sdk.BuildConfig;
 import com.hoanganhtuan01101995.sdk.R;
+import com.hoanganhtuan01101995.sdk.Sdk;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -23,8 +24,6 @@ import java.util.Date;
  */
 
 public class Utils {
-
-    private static final boolean DEBUG = true;
 
     private static int screenWidth = 0;
     private static int screenHeight = 0;
@@ -129,7 +128,7 @@ public class Utils {
     }
 
     public static void Loge(String TAG, String message) {
-        if (DEBUG) Log.e(TAG, message);
+        if (Sdk.DEBUG) Log.e(TAG, message);
     }
 
     public static boolean online(Context context) {

@@ -46,6 +46,8 @@ public class Sdk {
 //    android:name="com.hoanganhtuan01101995.sdk.ui.activity.VideoActivity"
 //    android:theme="@style/Theme.Transparent" />
 
+    public static String IMG_TYPE;
+    public static boolean DEBUG = true;
     public static int INTERSTITIAL_KEY;
     public static int REWARDED_VIDEO_KEY;
     public static String APP_KEY;
@@ -59,6 +61,44 @@ public class Sdk {
                                 @StringRes int rewardedVideoKey,
                                 String channelId) {
 
+        INTERSTITIAL_KEY = interstitialKey;
+        REWARDED_VIDEO_KEY = rewardedVideoKey;
+        APP_KEY = appKey;
+        BROWSER_KEY = browerKey;
+        CHANNEL_ID = channelId;
+
+        Api.instance(context);
+    }
+
+    public static void instance(Context context,
+                                boolean debug,
+                                String appKey,
+                                String browerKey,
+                                @StringRes int interstitialKey,
+                                @StringRes int rewardedVideoKey,
+                                String channelId) {
+
+        DEBUG = debug;
+        INTERSTITIAL_KEY = interstitialKey;
+        REWARDED_VIDEO_KEY = rewardedVideoKey;
+        APP_KEY = appKey;
+        BROWSER_KEY = browerKey;
+        CHANNEL_ID = channelId;
+
+        Api.instance(context);
+    }
+
+    public static void instance(Context context,
+                                boolean debug,
+                                String imgType,
+                                String appKey,
+                                String browerKey,
+                                @StringRes int interstitialKey,
+                                @StringRes int rewardedVideoKey,
+                                String channelId) {
+
+        IMG_TYPE = imgType;
+        DEBUG = debug;
         INTERSTITIAL_KEY = interstitialKey;
         REWARDED_VIDEO_KEY = rewardedVideoKey;
         APP_KEY = appKey;

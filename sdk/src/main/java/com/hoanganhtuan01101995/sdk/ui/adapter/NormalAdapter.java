@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hoanganhtuan01101995.sdk.R;
+import com.hoanganhtuan01101995.sdk.Sdk;
 import com.hoanganhtuan01101995.sdk.db.Video;
 import com.hoanganhtuan01101995.sdk.utils.Utils;
 import com.squareup.picasso.Picasso;
@@ -44,7 +45,7 @@ public class NormalAdapter extends BaseAdapter<Video> {
         viewHolder.tvTime.setText(Utils.getTimeAgo(video.getPublishedAt(), activity));
 
         Picasso.with(activity)
-                .load("https://img.youtube.com/vi/" + video.getVideoId() + "/maxresdefault.jpg")
+                .load("https://img.youtube.com/vi/" + video.getVideoId() + "/"+ Sdk.IMG_TYPE+".jpg")
                 .resize(200, 200)
                 .centerCrop()
                 .into(viewHolder.img);

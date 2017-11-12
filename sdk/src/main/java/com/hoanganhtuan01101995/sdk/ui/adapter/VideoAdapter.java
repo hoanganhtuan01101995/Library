@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.hoanganhtuan01101995.sdk.R;
+import com.hoanganhtuan01101995.sdk.Sdk;
 import com.hoanganhtuan01101995.sdk.db.Video;
 import com.squareup.picasso.Picasso;
 
@@ -39,7 +40,7 @@ public class VideoAdapter extends BaseAdapter<Video> {
         final Video video = list.get(position);
 
         Picasso.with(activity)
-                .load("https://img.youtube.com/vi/" + video.getVideoId() + "/maxresdefault.jpg")
+                .load("https://img.youtube.com/vi/" + video.getVideoId() + "/"+ Sdk.IMG_TYPE+".jpg")
                 .resize(500, 500)
                 .centerCrop()
                 .into(viewHolder.iv);
