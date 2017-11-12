@@ -5,3 +5,5 @@
 -verbose
 
 -keepattributes Signature
+
+-keep class com.hoanganhtuan01101995.admob.** { *; }
