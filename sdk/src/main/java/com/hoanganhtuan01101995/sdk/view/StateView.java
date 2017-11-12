@@ -51,10 +51,10 @@ public class StateView extends RelativeLayout {
         tvDescription = this.findViewById(R.id.tv_description);
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StateView);
-            drawableNoData = a.getResourceId(R.styleable.StateView_drawableNoData, R.mipmap.ic_launcher);
+            drawableNoData = a.getResourceId(R.styleable.StateView_drawableNoData, R.drawable.ic_not_data);
             titleNoData = a.getResourceId(R.styleable.StateView_titleNoData, R.string.app_name);
             descriptionNoData = a.getResourceId(R.styleable.StateView_descriptionNoData, R.string.app_name);
-            drawableNoInternet = a.getResourceId(R.styleable.StateView_drawableNoInternet, R.mipmap.ic_launcher);
+            drawableNoInternet = a.getResourceId(R.styleable.StateView_drawableNoInternet, R.drawable.ic_not_internet);
             titleNoInternet = a.getResourceId(R.styleable.StateView_titleNoInternet, R.string.app_name);
             descriptionNoInternet = a.getResourceId(R.styleable.StateView_descriptionNoInternet, R.string.app_name);
             a.recycle();
