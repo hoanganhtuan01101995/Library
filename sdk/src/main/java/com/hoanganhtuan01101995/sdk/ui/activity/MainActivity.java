@@ -18,6 +18,8 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.hoanganhtuan01101995.admob.Admob;
 import com.hoanganhtuan01101995.admob.interstitial.InterstitialAdServicer;
 import com.hoanganhtuan01101995.admob.video.VideoAdService;
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener,
         StateView.OnRefreshClickedListener {
+
+    private static final String TAG = "MainActivity";
 
     ImageView ivSearch;
     ImageView ivAdvertisement;
@@ -309,6 +313,47 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         videoAdService = Admob.with(this)
                 .asVideo()
                 .setVideoAdId(Sdk.REWARDED_VIDEO_KEY)
+                .setRewardedVideoAdListener(new RewardedVideoAdListener() {
+                    @Override
+                    public void onRewardedVideoAdLoaded() {
+                        Utils.Loge(TAG, "onRewardedVideoAdLoaded");
+                    }
+
+                    @Override
+                    public void onRewardedVideoAdOpened() {
+                        Utils.Loge(TAG, "onRewardedVideoAdOpened");
+                    }
+
+                    @Override
+                    public void onRewardedVideoStarted() {
+                        Utils.Loge(TAG, "onRewardedVideoStarted");
+                    }
+
+                    @Override
+                    public void onRewardedVideoAdClosed() {
+                        Utils.Loge(TAG, "onRewardedVideoAdClosed");
+                        videoAdService = Admob.with(MainActivity.this)
+                                .asVideo()
+                                .setVideoAdId(Sdk.REWARDED_VIDEO_KEY)
+                                .setRewardedVideoAdListener(this)
+                                .builder();
+                    }
+
+                    @Override
+                    public void onRewarded(RewardItem rewardItem) {
+                        Utils.Loge(TAG, "onRewarded");
+                    }
+
+                    @Override
+                    public void onRewardedVideoAdLeftApplication() {
+                        Utils.Loge(TAG, "onRewardedVideoAdLeftApplication");
+                    }
+
+                    @Override
+                    public void onRewardedVideoAdFailedToLoad(int i) {
+                        Utils.Loge(TAG, "onRewardedVideoAdFailedToLoad");
+                    }
+                })
                 .builder();
     }
 
