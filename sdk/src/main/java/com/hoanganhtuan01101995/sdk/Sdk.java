@@ -23,6 +23,29 @@ public class Sdk {
 //        Sdk.instance(this, APP_KEY, BROWSER_KEY, INTERSTITIAL_KEY, REWARDED_VIDEO_KEY, CHANNEL_ID);
 //    }
 
+//      <activity android:name="com.hoanganhtuan01101995.sdk.ui.activity.MainActivity">
+//            <intent-filter>
+//                <action android:name="android.intent.action.MAIN" />
+//
+//                <category android:name="android.intent.category.LAUNCHER" />
+//            </intent-filter>
+//        </activity>
+//        <activity
+//    android:name="com.hoanganhtuan01101995.sdk.ui.activity.ListLoadMoreHomeActivity"
+//    android:theme="@style/Theme.Transparent" />
+//        <activity
+//    android:name="com.hoanganhtuan01101995.sdk.ui.activity.ListPlaylistActivity"
+//    android:theme="@style/Theme.Transparent" />
+//        <activity
+//    android:name="com.hoanganhtuan01101995.sdk.ui.activity.ListVideoPlaylistActivity"
+//    android:theme="@style/Theme.Transparent" />
+//        <activity
+//    android:name="com.hoanganhtuan01101995.sdk.ui.activity.SearchActivity"
+//    android:theme="@style/Theme.Transparent" />
+//        <activity
+//    android:name="com.hoanganhtuan01101995.sdk.ui.activity.VideoActivity"
+//    android:theme="@style/Theme.Transparent" />
+
     public static int INTERSTITIAL_KEY;
     public static int REWARDED_VIDEO_KEY;
     public static String APP_KEY;
